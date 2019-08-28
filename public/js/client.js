@@ -114,7 +114,7 @@ socket.onclose = function(message) {
             //Navbutton, der mit View übereinstimmt, aktiv machen
             $($.navElem + '[data-href="' + view + '"]').addClass("active");
         };
-        setTimeout($root.gotoView("/account"), 999)
+        setTimeout($root.gotoView("/account/overview"), 999)
         //Aktuellen View-Namen erhalten (Anwendungspfad)
         $root.getView = function() {
             return $location.$$path;
@@ -147,7 +147,6 @@ socket.onclose = function(message) {
                     }
                     break;
             }
-            //setTimeout($3.fixedNav.refresh(), 0);
         });
     });
     //Nach ngRoute-Navigation fixedNav refreshen
@@ -156,13 +155,18 @@ socket.onclose = function(message) {
             var path = $root.getView();
             $scope.path = path;
             $scope.links = [];
-            if (path === "/") path = "/start"
+            if (path === "/") path = "/start";
+            //only first layer
+            path = '/' + path.split("/")[1];
             $http({
                 method: 'GET',
                 url: '/menu' + path + ".json"
             }).then(function(res) {
                 for (var i in res.data) {
                     var link = res.data[i];
+                
+                  
+                  
                     $scope.links.push({
                         href: link.href.replace("$", path.split("/")[1]),
                         text: link.text
