@@ -93,7 +93,7 @@ socket.onclose = function(message) {
         var $base = '/views';
         //Navigations-Templates festlegen
         $routeProvider
-            .when("/", {
+            .when("/start", {
                 templateUrl: $base + "/start.htm"
             })
             .when("/cw", {
@@ -177,12 +177,25 @@ socket.onclose = function(message) {
     
         function getFromServer(){
           var path = $root.getView();
+          
+          $scope.path = path;
+          
+           $scope.links = [];
+           $scope.links.push({
+                      "href": "/start",
+                      "text": "Start"
+                  })
+          
           if(path === "/")path="/start"
             $http({
                 method: 'GET',
                 url: '/menu' + path + ".json"
              }).then(function (res){
-                   $scope.links= res.data;
+                  
+                    for(var i in res.data){
+                        $scope.links.push(res.data[i])
+                    }
+                    
               
                $scope.links.push({
                       "href": "/account",
