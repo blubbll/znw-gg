@@ -13,11 +13,11 @@ body {
 
 
 #sidebar-wrapper .sidebar-heading {
-    height: 54px;
+    height: 58px;
 }
 
 #page-content-wrapper .navbar{
-    height: 55px;
+    height: 59px;
 }
 
 
@@ -28,11 +28,6 @@ body {
 /* sidebar items */
 #sidebar-wrapper .list-group>.list-group-item {
     padding: .5rem .8rem;
-}
-
-/* sidebar width */
-#sidebar-wrapper .list-group {
-    width: 6rem;
 }
 
 #page-content-wrapper {

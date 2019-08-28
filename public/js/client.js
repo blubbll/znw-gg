@@ -102,6 +102,9 @@ socket.onclose = function(message) {
             .when("/archive", {
                 templateUrl: $base + "/archive.htm"
             })
+            .when("/account", {
+                templateUrl: $base + "/account.htm"
+            })
       ;
     });
   
@@ -119,7 +122,7 @@ socket.onclose = function(message) {
         });
 
         //Zu einem View gehen
-        $.gotoView = function (view) {
+        $root.gotoView = function (view) {
             location.hash = decodeURIComponent("#!") + view;
 
             //Views sollten immer mit nem Slash beginnen...
@@ -132,6 +135,8 @@ socket.onclose = function(message) {
             $($.navElem + '[data-href="' + view + '"]').addClass("active");
         };
 
+        setTimeout($root.gotoView("/account"),999)
+      
         //Aktuellen View-Namen erhalten (Anwendungspfad)
         $root.getView= function () {
             return $location.$$path;
@@ -140,7 +145,6 @@ socket.onclose = function(message) {
         //Bei Navigation
         $rootScope.$on("$locationChangeStart", function (event, next, current) {
             //$.fixUrl();
-          
         });
 
         //Routenwechsel schlägt fehl.
@@ -196,5 +200,6 @@ socket.onclose = function(message) {
       
      }]);
   
+
   
 }()];
