@@ -1,4 +1,9 @@
 [{
     "href": "/$/overview",
-    "text": "View"
-}]
+    "text": "Overview"
+},
+{
+    "href": "/$/edit",
+    "text": "Edit"
+}
+]

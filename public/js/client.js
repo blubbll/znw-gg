@@ -92,7 +92,7 @@ socket.onclose = function(message) {
     app.config(function($routeProvider) {
         var $base = '/views';
         //Navigations-Templates festlegen
-        $routeProvider
+        /*$routeProvider
             .when("/start", {
                 templateUrl: $base + "/start.htm"
             })
@@ -105,6 +105,13 @@ socket.onclose = function(message) {
             .when("/account", {
                 templateUrl: $base + "/account.htm"
             })
+            */
+         $routeProvider.when('/:page/:name*', {
+            templateUrl: function(urlattr){
+                return '/' + urlattr.page + '/' + urlattr.name + '.htm';
+            },
+            controller: 'CMSController'
+        });
       ;
     });
   
@@ -149,8 +156,8 @@ socket.onclose = function(message) {
 
         //Routenwechsel schlägt fehl.
         $rootScope.$on("$routeChangeError", function (errorReloadMsg) {
-            alert("Navigation fehlgeschlagen.\n" + errorReloadMsg);
-            location.reload();
+            console.log("Navigation fehlgeschlagen.\n" + errorReloadMsg);
+            //location.reload();
         });
 
         //Bei erfolgreichem Routenwechsel
@@ -181,10 +188,7 @@ socket.onclose = function(message) {
           $scope.path = path;
           
            $scope.links = [];
-           $scope.links.push({
-                      "href": "/start",
-                      "text": "Start"
-                  })
+      
           
           if(path === "/")path="/start"
             $http({
@@ -193,14 +197,15 @@ socket.onclose = function(message) {
              }).then(function (res){
                   
                     for(var i in res.data){
-                        $scope.links.push(res.data[i])
+                      var link = res.data[i];
+                      
+                      $scope.links.push({href: link.href.replace("$", path.split("/")[1]), text: link.text})
                     }
-                    
-              
-               $scope.links.push({
-                      "href": "/account",
-                      "text": "Account"
+                   $scope.links.push({
+                      "href": "/start",
+                      "text": "Start"
                   })
+                    //$scope.links = res.data;
               
              },function (error){
 
