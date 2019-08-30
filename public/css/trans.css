@@ -1,0 +1,46 @@
+/* https://stackoverflow.com/a/33927043/9506947 */
+ng-view.ng-enter,ng-view.ng-leave-active  {
+position: absolute!important;
+filter: none;
+width: calc(100% - 30px); /* padding von bs=15*2=30 */
+}
+@keyframes fadeIn {
+0%    { opacity: 0; }
+50%   { opacity: .5; }
+100%  { opacity: 1; }
+}
+@keyframes fadeOut {
+0%    { opacity: 1; }
+50%   { opacity: .5; }
+100%  { opacity: 0; }
+}
+
+@keyframes blurIn {
+0%    { filter: none; }
+100%  { filter: blur(7px);}
+}
+@keyframes blurOut {
+0%    { filter: blur(7px); }
+100%  { filter: none;}
+}
+
+ng-view.ng-enter { animation: blurIn 0.3s both linear, fadeIn 0.3s both linear; z-index: 8888;}
+ng-view.ng-leave{ animation: blurOut 0.3s both linear, fadeOut 0.3s both linear; z-index: 9999;}
+
+#sidebar-wrapper>nav.ng-enter *,#sidebar-wrapper>nav.ng-leave-active *
+{
+position: absolute!important;
+}
+
+#sidebar-wrapper>nav{
+  filter: none;
+  transition: filter 1s ease;
+}
+#sidebar-wrapper>nav.loading{
+  filter: blur(5px);
+   transition: filter 1s ease;
+}
+
+#sidebar-wrapper>nav>a.ng-leave-active{
+display: none;
+}

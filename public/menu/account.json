@@ -5,5 +5,9 @@
 {
     "href": "/$/edit",
     "text": "Edit"
+},
+{
+    "href": "/logout",
+    "text": "Logout"
 }
 ]
